@@ -15,10 +15,8 @@ class Users(models.Model):
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
             Users.objects.create(user=instance)
+            instance.users.save()
 
-    @receiver(post_save, sender=User)
-    def save_user_profile(sender, instance, **kwargs):
-        instance.profile.save()
 
 
 class Place(models.Model):
