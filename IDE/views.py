@@ -9,7 +9,7 @@ class SQLQueryView(APIView):
         if serializer.is_valid():
             query = serializer.validated_data.get('query')
             try:
-                with connection.cursor() as cursor:
+                with connection['external_db'].cursor() as cursor:
                     cursor.execute(query)
                     results = cursor.fetchall()
                     return Response({"results": results})
