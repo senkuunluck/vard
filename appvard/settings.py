@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'vard.apps.VardConfig',
     'reg_auth.apps.RegAuthConfig',
+    'IDE.apps.IdeConfig',
     'rest_framework',
     'rest_framework.authtoken',
     'djoser'
