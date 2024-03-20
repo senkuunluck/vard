@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from models import SQLQuery
+from IDE.models import SQLQuery
 
 class SQLQuerySerializer(serializers.ModelSerializer):
     class Meta:

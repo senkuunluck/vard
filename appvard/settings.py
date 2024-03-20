@@ -86,11 +86,11 @@ DATABASES = {
     },
     'external_db': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'external_database_name',
-        'USER': 'external_user',
-        'PASSWORD': 'external_password',
-        'HOST': 'external_host',
-        'PORT': 'external_port',
+        'NAME': 'vardproject',
+        'USER': 'root',
+        'PASSWORD': '85l104wp4k',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
     }
 }
 
