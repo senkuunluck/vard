@@ -1,6 +1,7 @@
+from MySQLdb import connections
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from serializers import SQLQuerySerializer
+from IDE.serializers import SQLQuerySerializer
 from django.db import connection
 
 class SQLQueryView(APIView):
