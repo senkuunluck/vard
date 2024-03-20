@@ -1,8 +1,8 @@
-from MySQLdb import connections
+#from MySQLdb import connections
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from IDE.serializers import SQLQuerySerializer
-from django.db import connection
+from django.db import connections
 
 class SQLQueryView(APIView):
     def post(self, request):
@@ -10,7 +10,7 @@ class SQLQueryView(APIView):
         if serializer.is_valid():
             query = serializer.validated_data.get('query')
             try:
-                with connection['external_db'].cursor() as cursor:
+                with connections['external_db'].cursor() as cursor:
                     cursor.execute(query)
                     results = cursor.fetchall()
                     return Response({"results": results})
