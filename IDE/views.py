@@ -1,6 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import SQLQuerySerializer
+from serializers import SQLQuerySerializer
 from django.db import connection
 
 class SQLQueryView(APIView):
@@ -14,5 +14,5 @@ class SQLQueryView(APIView):
                     results = cursor.fetchall()
                     return Response({"results": results})
             except Exception as e:
-                return Response({"error": str(e)}, status=400)
+                return Response({"error": str(e)}, status=500) #TODO
         return Response(serializer.errors, status=400)
