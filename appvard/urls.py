@@ -19,11 +19,18 @@ from django.urls import path, include, re_path
 from vard.views import *
 from rest_framework import routers
 from IDE.views import SQLQueryView
+from vard.views import UsersViewSet
+
+router = routers.DefaultRouter()
+router.register(r'users', UsersViewSet)
+print(router.urls)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/vard-auth/', include('rest_framework.urls')),
     path('api/v1/auth/', include('djoser.urls')),
     re_path(r'^auth/', include('djoser.urls.authtoken')),
+    path('api/v1/', include(router.urls)),
     path('api/v1/sql/', SQLQueryView.as_view())
 ]
