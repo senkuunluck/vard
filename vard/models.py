@@ -19,11 +19,40 @@ class Users(models.Model):
             instance.users.save()
 
 
-class Place(models.Model):
-    type = models.CharField(max_length=255)
+
+class Files(models.Model):
+    CSV = 'CSV'
+    JSON = 'JSON'
+    EXCEL = 'EXCEL'
+    PDF = 'PDF'
+    COMMUNITY = 'COM'
+    MY_FILES = 'MFL'
+    BEST_PRACTICES = 'BPS'
+
+    PLACE = [
+        (COMMUNITY, 'Community'),
+        (MY_FILES, 'My_files'),
+        (BEST_PRACTICES, 'Best_Practices')
+    ]
+
+    FILE_TYPE = [
+        (CSV, 'CSV'),
+        (JSON, 'JSON'),
+        (EXCEL, 'EXCEL'),
+        (PDF, 'PDF'),
+    ]
+    user = models.ForeignKey(Users, on_delete=models.CASCADE)
+    place = models.CharField(max_length=3, choices=PLACE)
+    file_type = models.CharField(max_length=10, choices=FILE_TYPE, default=EXCEL)
+    date_creation = models.DateTimeField(auto_now_add=True)
+    date_change = models.DateTimeField(auto_now=True)
+    date_delete = models.DateTimeField(auto_now=True)
+    name = models.CharField(max_length=255, unique=True)
+    link = models.CharField(max_length=255, unique=True)
+    publish = models.BooleanField(default=True)
 
 
-class Access_type(models.Model):
+class Access(models.Model):
     READER = 'RDR'
     OWNER = 'OWN'
     COMMENTATOR = 'CMT'
@@ -35,42 +64,14 @@ class Access_type(models.Model):
         (COMMENTATOR, 'COMMENTATOR'),
         (EDITOR, 'EDITOR'),
     ]
-    access_type = models.CharField(max_length=255, choices=ACCESS_TYPES)
-
-
-class Files(models.Model):
-    CSV = 'CSV'
-    JSON = 'JSON'
-    EXCEL = 'EXCEL'
-    PDF = 'PDF'
-
-    FILE_TYPE = [
-        (CSV, 'CSV'),
-        (JSON, 'JSON'),
-        (EXCEL, 'EXCEL'),
-        (PDF, 'PDF'),
-    ]
+    file = models.ForeignKey(Files, on_delete=models.CASCADE)
     user = models.ForeignKey(Users, on_delete=models.CASCADE)
-    place = models.ForeignKey(Place, on_delete=models.CASCADE)
-    type = models.ForeignKey(Access_type, on_delete=models.CASCADE)
-    date_creation = models.DateTimeField(auto_now_add=True)
-    date_change = models.DateTimeField(auto_now=True)
-    date_delete = models.DateTimeField(auto_now=True)
-    name = models.CharField(max_length=255, unique=True)
-    link = models.CharField(max_length=255, unique=True)
-    publish = models.BooleanField(default=True)
-    file_type = models.CharField(max_length=10, choices=FILE_TYPE, default=EXCEL)
-
-
-class Access(models.Model):
-    id_file = models.ForeignKey(Files, on_delete=models.CASCADE)
-    user = models.ForeignKey(Users, on_delete=models.CASCADE)
-    access_type_id = models.ForeignKey(Access_type, on_delete=models.CASCADE)
+    access_type = models.CharField(max_length=20, choices=ACCESS_TYPES)
     date_access_open = models.DateTimeField(auto_now=True)
     date_access_close = models.DateTimeField(auto_now=True)
 
 
-class Feedback (models.Model):
+class Feedback(models.Model):
     user = models.ForeignKey(Users, on_delete=models.CASCADE)
     date_creation = models.DateTimeField(auto_now_add=True)
     theme = models.CharField(max_length=255)
