@@ -4,13 +4,13 @@ from rest_framework import viewsets
 from vard.serializers import *
 from vard.models import *
 
-class UsersViewSet(viewsets.ModelViewSet):
-    queryset = Users.objects.all()
-    serializer_class = UsersSerializer
+class MyUserViewSet(viewsets.ModelViewSet):
+    queryset = MyUser.objects.all()
+    serializer_class = MyUserSerializer
 
-class FilesViewSet(viewsets.ModelViewSet):
-    queryset = Files.objects.all()
-    serializer_class = FilesSerializer
+class FileViewSet(viewsets.ModelViewSet):
+    queryset = File.objects.all()
+    serializer_class = FileSerializer
 
 class AccessViewSet(viewsets.ModelViewSet):
     queryset = Access.objects.all()
@@ -20,18 +20,18 @@ class FeedbackViewSet(viewsets.ModelViewSet):
     queryset = Feedback.objects.all()
     serializer_class = FeedbackSerializer
 
-class DashboardsViewSet(viewsets.ModelViewSet):
-    queryset = Dashboards.objects.all()
-    serializer_class = DashboardsSerializer
+class DashboardViewSet(viewsets.ModelViewSet):
+    queryset = Dashboard.objects.all()
+    serializer_class = DashboardSerializer
 
-class ChartsViewSet(viewsets.ModelViewSet):
-    queryset = Charts.objects.all()
-    serializer_class = ChartsSerializer
+class ChartViewSet(viewsets.ModelViewSet):
+    queryset = Chart.objects.all()
+    serializer_class = ChartSerializer
 
-class CommentsViewSet(viewsets.ModelViewSet):
-    queryset = Comments.objects.all()
-    serializer_class = CommentsSerializer
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
 
-class ReadCommentsViewSet(viewsets.ModelViewSet):
-    queryset = ReadComments.objects.all()
-    serializer_class = ReadCommentsSerializer
+class ReadCommentViewSet(viewsets.ModelViewSet):
+    queryset = ReadComment.objects.all()
+    serializer_class = ReadCommentSerializer

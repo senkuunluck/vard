@@ -1,14 +1,14 @@
 from rest_framework import serializers
 from .models import *
 
-class UsersSerializer(serializers.ModelSerializer):
+class MyUserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Users
+        model = MyUser
         fields = '__all__'
 
-class FilesSerializer(serializers.ModelSerializer):
+class FileSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Files
+        model = File
         fields = '__all__'
 
 class AccessSerializer(serializers.ModelSerializer):
@@ -21,22 +21,22 @@ class FeedbackSerializer(serializers.ModelSerializer):
         model = Feedback
         fields = '__all__'
 
-class DashboardsSerializer(serializers.ModelSerializer):
+class DashboardSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Dashboards
+        model = Dashboard
         fields = '__all__'
 
-class ChartsSerializer(serializers.ModelSerializer):
+class ChartSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Charts
+        model = Chart
         fields = '__all__'
 
-class CommentsSerializer(serializers.ModelSerializer):
+class CommentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Comments
+        model = Comment
         fields = '__all__'
 
-class ReadCommentsSerializer(serializers.ModelSerializer):
+class ReadCommentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ReadComments
+        model = ReadComment
         fields = '__all__'

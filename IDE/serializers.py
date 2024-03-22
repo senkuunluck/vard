@@ -1,5 +1,11 @@
 from rest_framework import serializers
-from IDE.models import SQLQuery
+from IDE.models import SQLQuery, ExternalDB
+
+
+class ExternalDBSerializer(serializers.ModelSerializer):
+    model = ExternalDB
+    fields = '__all__'
+
 
 class SQLQuerySerializer(serializers.ModelSerializer):
     class Meta:

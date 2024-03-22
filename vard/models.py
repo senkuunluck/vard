@@ -4,7 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
-class Users(models.Model):
+class MyUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     email = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
@@ -15,12 +15,12 @@ class Users(models.Model):
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
-            Users.objects.create(user=instance)
-            instance.users.save()
+            MyUser.objects.create(user=instance)
+            instance.save()
 
 
 
-class Files(models.Model):
+class File(models.Model):
     CSV = 'CSV'
     JSON = 'JSON'
     EXCEL = 'EXCEL'
@@ -41,7 +41,7 @@ class Files(models.Model):
         (EXCEL, 'EXCEL'),
         (PDF, 'PDF'),
     ]
-    user = models.ForeignKey(Users, on_delete=models.CASCADE)
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     place = models.CharField(max_length=3, choices=PLACE)
     file_type = models.CharField(max_length=10, choices=FILE_TYPE, default=EXCEL)
     date_creation = models.DateTimeField(auto_now_add=True)
@@ -64,45 +64,45 @@ class Access(models.Model):
         (COMMENTATOR, 'COMMENTATOR'),
         (EDITOR, 'EDITOR'),
     ]
-    file = models.ForeignKey(Files, on_delete=models.CASCADE)
-    user = models.ForeignKey(Users, on_delete=models.CASCADE)
+    file = models.ForeignKey(File, on_delete=models.CASCADE)
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     access_type = models.CharField(max_length=20, choices=ACCESS_TYPES)
     date_access_open = models.DateTimeField(auto_now=True)
     date_access_close = models.DateTimeField(auto_now=True)
 
 
 class Feedback(models.Model):
-    user = models.ForeignKey(Users, on_delete=models.CASCADE)
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     date_creation = models.DateTimeField(auto_now_add=True)
     theme = models.CharField(max_length=255)
     description = models.TextField()
 
 
-class Dashboards(models.Model):
-    user = models.ForeignKey(Users, on_delete=models.CASCADE)
+class Dashboard(models.Model):
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     date_creation = models.DateTimeField(auto_now_add=True)
     date_change = models.DateTimeField(auto_now=True)
 
 
-class Charts(models.Model):
-    user = models.ForeignKey(Users, on_delete=models.CASCADE)
+class Chart(models.Model):
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     date_creation = models.DateTimeField(auto_now_add=True)
     date_change = models.DateTimeField(auto_now=True)
 
 
-class Comments(models.Model):
-    file = models.ForeignKey(Files, on_delete=models.CASCADE)
-    chart = models.ForeignKey(Charts, on_delete=models.CASCADE)
-    dashboard = models.ForeignKey(Dashboards, on_delete=models.CASCADE)
-    user = models.ForeignKey(Users, on_delete=models.CASCADE)
+class Comment(models.Model):
+    file = models.ForeignKey(File, on_delete=models.CASCADE)
+    chart = models.ForeignKey(Chart, on_delete=models.CASCADE)
+    dashboard = models.ForeignKey(Dashboard, on_delete=models.CASCADE)
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     date_send = models.DateTimeField(auto_now=True)
     date_remove = models.DateTimeField(auto_now=True)
     date_delivery = models.DateTimeField(auto_now=True)
     comment = models.TextField()
 
 
-class ReadComments(models.Model):
-    user = models.ForeignKey(Users, on_delete=models.CASCADE)
-    comment = models.ForeignKey(Comments, on_delete=models.CASCADE)
+class ReadComment(models.Model):
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
     date_reading = models.DateTimeField(auto_now=True)
 
