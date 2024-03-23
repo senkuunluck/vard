@@ -37,7 +37,7 @@ urlpatterns = [
     path('api/v1/auth/', include('djoser.urls')), # + /users/ - регистрация (POST)
     re_path(r'^auth/', include('djoser.urls.authtoken')), # АВТОРИЗАЦИЯ ПО ТОКЕНУ (POST)
     path('api/v1/', include(router.urls)),  # CRUD для моделей (GET, POST, PUT, DELETE)
-    path('connect-to-external-db/', ConnectToRemoteDB.as_view(), name='connect_to_external_db'), # подключение к БД
-    path('execute-sql-query/', ConnectToRemoteDB.as_view(), name='execute_sql_query'), # выполнение sql
+    path('api/v1/connect-to-external-db/', ConnectToRemoteDB.as_view(), name='connect_to_external_db'), # подключение к БД
+    path('api/v1/execute-sql-query/', ConnectToRemoteDB.as_view(), name='execute_sql_query'), # выполнение sql
 
 ]

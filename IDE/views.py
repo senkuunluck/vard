@@ -30,7 +30,7 @@ class ConnectToRemoteDB(APIView):
         return result
 
     def post(self, request):
-        if request.path == '/connect-to-external-db/': # этот кусок кода будет отрабатывать, когда пользователь подключается
+        if request.path == 'api/v1/connect-to-external-db/': # этот кусок кода будет отрабатывать, когда пользователь подключается
             serializer = ExternalDBSerializer(data=request.data)
             if serializer.is_valid():
                 data = serializer.validated_data
@@ -43,7 +43,7 @@ class ConnectToRemoteDB(APIView):
 
             return Response(serializer.errors, status=400)
 
-        elif request.path == '/execute-sql-query/': # этот кусок кода будет отрабатывать, когда пользователь передает запрос
+        elif request.path == 'api/v1/execute-sql-query/': # этот кусок кода будет отрабатывать, когда пользователь передает запрос
             serializer = SQLQuerySerializer(data=request.data)
             if serializer.is_valid():
                 data = serializer.validated_data
