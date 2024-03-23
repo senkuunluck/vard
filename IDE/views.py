@@ -9,7 +9,7 @@ class ConnectToRemoteDB(APIView):
     connection = None
 
     def establish_connection(self, host, user, password, database):
-        """Функция для подключения к БД"""
+        """Функция для подключения к БД MySQL"""
         try:
             conn = mysql.connector.connect(
                 host=host,
@@ -35,7 +35,7 @@ class ConnectToRemoteDB(APIView):
             if serializer.is_valid():
                 data = serializer.validated_data
 
-                self.connection = self.establish_connection(data['host'], data['user'], data['password'], data['database'])
+                self.connection = self.establish_connection(data['host'], data['user'], data['password'], data['database_name'])
                 if self.connection is not None:
                     return Response("Connection successful")
                 else:

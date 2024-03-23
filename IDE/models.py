@@ -10,7 +10,7 @@ class ExternalDB(models.Model):
     host = models.CharField(max_length=100)
     port = models.CharField(max_length=100)
     database_type = models.CharField(max_length=100)
-    database = models.CharField(max_length=100)
+    database_name = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
 
 
