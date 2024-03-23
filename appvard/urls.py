@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework import routers
-from IDE.views import SQLQueryView, DatabaseConnectionView, ConnectToRemoteDB
+from IDE.views import ConnectToRemoteDB
 from vard.views import *
 
 router = routers.DefaultRouter()
