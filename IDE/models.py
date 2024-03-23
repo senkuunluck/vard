@@ -8,14 +8,11 @@ class ExternalDB(models.Model):
     driver = models.CharField(max_length=100)
     url = models.CharField(max_length=100)
     host = models.CharField(max_length=100)
-    port = models.CharField(max_length=100) #Или Char?
+    port = models.CharField(max_length=100)
     database_type = models.CharField(max_length=100)
-    database_name = models.CharField(max_length=100)
+    database = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
 
 
 class SQLQuery(models.Model):
     query = models.TextField()
-
-    def __str__(self):
-        return self.query
