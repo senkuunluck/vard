@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from uploadfiles.models import UploadedFile
 
 
 class MyUser(models.Model):
@@ -42,15 +43,14 @@ class File(models.Model):
         (PDF, 'PDF'),
     ]
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
-    place = models.CharField(max_length=3, choices=PLACE)
+    place = models.CharField(max_length=3, choices=PLACE, default='MFL')
     file_type = models.CharField(max_length=10, choices=FILE_TYPE, default=EXCEL)
     date_creation = models.DateTimeField(auto_now_add=True)
     date_change = models.DateTimeField(auto_now=True)
     date_delete = models.DateTimeField(auto_now=True)
-    name = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=255, unique=True,)
     link = models.CharField(max_length=255, unique=True)
     publish = models.BooleanField(default=True)
-
 
 class Access(models.Model):
     READER = 'RDR'

@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
 from .serializers import FileUploadSerializer
 
 class FileUploadAPIView(APIView):
@@ -13,6 +14,7 @@ class FileUploadAPIView(APIView):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             serializer.save()
+
             return Response(
                 serializer.data,
                 status=status.HTTP_201_CREATED
