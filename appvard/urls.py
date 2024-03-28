@@ -19,6 +19,9 @@ from django.urls import path, include, re_path
 from rest_framework import routers
 from IDE.views import ConnectToRemoteDB
 from vard.views import *
+from django.conf.urls.static import static
+from django.conf import settings
+from uploadfiles.views import FileUploadAPIView
 
 router = routers.DefaultRouter()
 router.register(r'users', MyUserViewSet)
@@ -30,7 +33,6 @@ router.register(r'chart', ChartViewSet)
 router.register(r'comment', CommentViewSet)
 router.register(r'readcomment', ReadCommentViewSet)
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/vard-auth/', include('rest_framework.urls')), #+login +logout - вход/Выход (POST)
@@ -39,5 +41,7 @@ urlpatterns = [
     path('api/v1/', include(router.urls)),  # CRUD для моделей (GET, POST, PUT, DELETE)
     path('api/v1/connect-to-external-db/', ConnectToRemoteDB.as_view(), name='connect_to_external_db'), # подключение к БД
     path('api/v1/execute-sql-query/', ConnectToRemoteDB.as_view(), name='execute_sql_query'), # выполнение sql
-
+    path('upload-file/', FileUploadAPIView.as_view(), name='upload-file'),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

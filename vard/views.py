@@ -1,6 +1,4 @@
-from django.shortcuts import render
 from rest_framework import viewsets
-
 from vard.serializers import *
 from vard.models import *
 
