@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from uploadfiles.models import UploadedFile
+from django.core.validators import FileExtensionValidator
 
 
 class MyUser(models.Model):
@@ -12,6 +12,9 @@ class MyUser(models.Model):
     date_creation = models.DateTimeField(auto_now_add=True)
     date_passwords_change = models.DateTimeField(auto_now=True)
     password = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.user.username
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
@@ -44,13 +47,19 @@ class File(models.Model):
     ]
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     place = models.CharField(max_length=3, choices=PLACE, default='MFL')
-    file_type = models.CharField(max_length=10, choices=FILE_TYPE, default=EXCEL)
+    file_type = models.CharField(max_length=10, choices=FILE_TYPE)
     date_creation = models.DateTimeField(auto_now_add=True)
     date_change = models.DateTimeField(auto_now=True)
     date_delete = models.DateTimeField(auto_now=True)
-    name = models.CharField(max_length=255, unique=True,)
-    link = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=255)
+    link = models.FileField(upload_to= 'media/',
+                            unique=True,
+                            validators=[FileExtensionValidator
+                                        (allowed_extensions=['json', 'csv', 'xlsx', 'pdf'])])
     publish = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.link
 
 class Access(models.Model):
     READER = 'RDR'

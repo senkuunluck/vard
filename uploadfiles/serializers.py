@@ -1,7 +1,13 @@
 from rest_framework import serializers
-from .models import UploadedFile
+
+from vard.models import File
+
 
 class FileUploadSerializer(serializers.ModelSerializer):
     class Meta:
-        model = UploadedFile
-        fields = ('file', 'uploaded_on',)
+        model = File
+        fields = '__all__'
+        # не обрабатываем поле file_type.
+        # Нельзя давать пользователю указывать произвольный тип файла, нужно вытаскивать его самим
+        #см. views
+#
