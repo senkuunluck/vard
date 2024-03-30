@@ -60,7 +60,7 @@ class DownloadFromApi(APIView):
             file_content = ContentFile(response.content)
             file_instance.link.save(file_name, file_content)
 
-            file_instance.save()  # Не забудьте сохранить изменения в базе данных
+            file_instance.save()
             return Response({"success": "File saved successfully"}, status=status.HTTP_201_CREATED)
         else:
             return Response({"error": "Failed to download the file"}, status=response.status_code)
