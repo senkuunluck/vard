@@ -17,18 +17,26 @@ class FileUploadView(APIView):
         file_serializer = self.serializer_class(data=request.data)
 
         if file_serializer.is_valid():
-            file_obj = request.FILES['link']  # Создаем объект файла в Django.
+
+            user = request.user
+            my_user = user.myuser
+
+            file_obj = request.FILES['link']
             file_content = file_obj.read()
             file_name = default_storage.save(file_obj.name, ContentFile(file_content))
-            # здесь мы сохраняем файл в виде объекта джанго. Певый аргумент - это путь, второй - сам файл.
-            # сам файл оборачивается в ContentFile - джанговский класс для работы с файлами
-            # .read() - его содержимое
+
+            if file_name.endswith('.xlsx'):
+                file_type = 'EXCEL'
+            elif file_name.endswith('.pdf'):
+                file_type = 'PDF'
+            elif file_name.endswith('.csv'):
+                file_type = 'CSV'
+            elif file_name.endswith('.json'):
+                file_type = 'JSON'
 
             file_url = default_storage.url(file_name)
-            # говорим джанго сгенерировать урл для доступа к файлу
 
-            file_serializer.save(link=file_url)
-            # сохраняем всё что вытащили
+            file_serializer.save(link=file_url, name = file_name, user = my_user, file_type = file_type)
 
             return Response(file_serializer.data, status=status.HTTP_201_CREATED)
 

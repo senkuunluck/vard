@@ -6,4 +6,4 @@ from vard.models import File
 class FileUploadSerializer(serializers.ModelSerializer):
     class Meta:
         model = File
-        fields = '__all__'
+        fields = [('link')]
