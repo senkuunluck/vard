@@ -56,7 +56,7 @@ class File(models.Model):
                             unique=True,
                             validators=[FileExtensionValidator
                                         (allowed_extensions=['json', 'csv', 'xlsx', 'pdf'])])
-    link = models.CharField(max_length=255)
+    link = models.CharField(max_length=255, default='Local File')
     publish = models.BooleanField(default=True)
 
     def __str__(self):

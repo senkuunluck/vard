@@ -21,7 +21,7 @@ from IDE.views import ConnectToRemoteDB
 from vard.views import *
 from django.conf.urls.static import static
 from django.conf import settings
-from uploadfiles.views import FileUploadView
+from uploadfiles.views import FileUploadView, UploadViaLink
 
 router = routers.DefaultRouter()
 router.register(r'users', MyUserViewSet)
@@ -42,6 +42,7 @@ urlpatterns = [
     path('api/v1/connect-to-external-db/', ConnectToRemoteDB.as_view(), name='connect_to_external_db'), # подключение к БД
     path('api/v1/execute-sql-query/', ConnectToRemoteDB.as_view(), name='execute_sql_query'), # выполнение sql
     path('api/v1/upload-file/', FileUploadView.as_view(), name='upload-file'),
+    path('api/v1/upload-file/link', UploadViaLink.as_view(), name='link-file'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
