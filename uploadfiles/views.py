@@ -38,7 +38,7 @@ class FileUploadView(APIView):
 
             file_url = default_storage.url(file_name)
 
-            file_serializer.save(link=file_url, name = file_name, user = my_user, file_type = file_type)
+            file_serializer.save(link=file_url, name=file_name, user=my_user, file_type=file_type)
 
             return Response(file_serializer.data, status=status.HTTP_201_CREATED)
 
