@@ -52,10 +52,11 @@ class File(models.Model):
     date_change = models.DateTimeField(auto_now=True)
     date_delete = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=255)
-    link = models.FileField(upload_to= 'media/',
+    file = models.FileField(upload_to= 'media/',
                             unique=True,
                             validators=[FileExtensionValidator
                                         (allowed_extensions=['json', 'csv', 'xlsx', 'pdf'])])
+    link = models.CharField(max_length=255)
     publish = models.BooleanField(default=True)
 
     def __str__(self):
